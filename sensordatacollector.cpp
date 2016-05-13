@@ -6,7 +6,8 @@
 
 SensorDataCollector::SensorDataCollector(QObject *parent) : QObject(parent),
   m_deviceDiscoveryAgent(0),
-  m_leftFoot(0), m_rightFoot(0), m_accelerometer(0)
+  m_leftFoot(0), m_rightFoot(0), m_accelerometer(0),
+  m_leftFootController(0), m_rightFootController(0), m_accelerometerController(0)
 {
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
 
@@ -47,7 +48,15 @@ void SensorDataCollector::addDevice(const QBluetoothDeviceInfo &device)
 void SensorDataCollector::scanFinished()
 {
     if (m_leftFoot && m_rightFoot && m_accelerometer)
-        return;
+    {
+        m_leftFootController = new SensorController(*m_leftFoot, this);
+        m_rightFootController = new SensorController(*m_rightFoot, this);
+        m_accelerometerController = new SensorController(*m_accelerometer, this);
+    }
+    else
+    {
+        qWarning() << "not all devices are detected";
+    }
 
 }
 

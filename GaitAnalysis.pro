@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    sensordatacollector.cpp
+    sensordatacollector.cpp \
+    sensorcontroller.cpp
 
 HEADERS  += mainwindow.h \
-    sensordatacollector.h
+    sensordatacollector.h \
+    sensorcontroller.h
 
 FORMS    += mainwindow.ui
