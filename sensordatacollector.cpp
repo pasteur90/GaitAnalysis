@@ -1,6 +1,6 @@
 #include "sensordatacollector.h"
 
-SensorDataCollector::SensorDataCollector()
+SensorDataCollector::SensorDataCollector(QObject *parent) : QObject(parent)
 {
 
 }

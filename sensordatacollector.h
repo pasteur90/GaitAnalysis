@@ -3,10 +3,15 @@
 
 #include <QObject>
 
-class SensorDataCollector
+class SensorDataCollector : public QObject
 {
+    Q_OBJECT
 public:
-    SensorDataCollector();
+    explicit SensorDataCollector(QObject *parent = 0);
+
+signals:
+
+public slots:
 };
 
 #endif // SENSORDATACOLLECTOR_H
