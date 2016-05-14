@@ -13,7 +13,9 @@ public:
 private slots:
     void updateSensorValue(const QLowEnergyCharacteristic &,
                            const QByteArray &);
-
+signals:
+    void frontValue(const int);
+    void backValue(const int);
 };
 
 #endif // FOOTSENSORCONTROLLER_H

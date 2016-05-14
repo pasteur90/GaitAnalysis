@@ -18,14 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(deviceScanError(QBluetoothDeviceDiscoveryAgent::Error)));
     connect(m_deviceDiscoveryAgent, SIGNAL(finished()), this, SLOT(scanFinished()));
 
-//    SensorDataCollector _collector;
-//    _collector.deviceSearch();
-//    ui->accelerometerXPlot->appendPoint(QPointF(1, 1));
-}
-
-void MainWindow::deviceSearch()
-{
     m_deviceDiscoveryAgent->start();
+    // TODO: start time need to be updated every iteration
+    startTime = QTime::currentTime().msecsSinceStartOfDay();
+
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +42,11 @@ void MainWindow::addDevice(const QBluetoothDeviceInfo &device)
             m_leftFoot = new QBluetoothDeviceInfo(device);
             m_leftFootController = new FootSensorController(*m_leftFoot);
             m_leftFootController->connectToDevice();
+            connect(m_leftFootController, SIGNAL(frontValue(int)),
+                    this, SLOT(updateLeftFootFront(int)));
+            connect(m_leftFootController, SIGNAL(backValue(int)),
+                    this, SLOT(updateLeftFootBack(int)));
+
         }
         else if (QString::compare(device.name(), QString("HGinnoR")) == 0
                  && m_rightFoot == 0) {
@@ -60,6 +61,13 @@ void MainWindow::addDevice(const QBluetoothDeviceInfo &device)
             m_accelerometer = new QBluetoothDeviceInfo(device);
             m_accelerometerController = new AccelerometerController(*m_accelerometer);
             m_accelerometerController->connectToDevice();
+            connect(m_accelerometerController, SIGNAL(xValue(int)),
+                    this, SLOT(updateAccelerometerX(int)));
+            connect(m_accelerometerController, SIGNAL(yValue(int)),
+                    this, SLOT(updateAccelerometerY(int)));
+            connect(m_accelerometerController, SIGNAL(zValue(int)),
+                    this, SLOT(updateAccelerometerZ(int)));
+
         }
     }
 }
@@ -81,7 +89,6 @@ void MainWindow::scanFinished()
 
 }
 
-
 void MainWindow::deviceScanError(QBluetoothDeviceDiscoveryAgent::Error error)
 {
     if (error == QBluetoothDeviceDiscoveryAgent::PoweredOffError)
@@ -90,4 +97,39 @@ void MainWindow::deviceScanError(QBluetoothDeviceDiscoveryAgent::Error error)
         qDebug() << "Writing or reading from the device resulted in an error.";
     else
         qDebug() << "An unknown error has occurred.";
+}
+
+void MainWindow::updateLeftFootFront(const int val)
+{
+    ui->leftFootFrontPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+}
+
+void MainWindow::updateLeftFootBack(const int val)
+{
+    ui->leftFootBackPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+}
+
+void MainWindow::updateRightFootFront(const int val)
+{
+    ui->rightFootFrontPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+}
+
+void MainWindow::updateRightFootBack(const int val)
+{
+    ui->rightFootBackPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+}
+
+void MainWindow::updateAccelerometerX(const int val)
+{
+    ui->accelerometerXPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+}
+
+void MainWindow::updateAccelerometerY(const int val)
+{
+    ui->accelerometerYPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+}
+
+void MainWindow::updateAccelerometerZ(const int val)
+{
+    ui->accelerometerZPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
 }

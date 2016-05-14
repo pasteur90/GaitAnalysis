@@ -13,6 +13,10 @@ public:
 private slots:
     void updateSensorValue(const QLowEnergyCharacteristic &,
                            const QByteArray &);
+signals:
+    void xValue(const int);
+    void yValue(const int);
+    void zValue(const int);
 };
 
 #endif // ACCELEROMETERCONTROLLER_H

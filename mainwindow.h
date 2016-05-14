@@ -12,6 +12,7 @@
 #include <QLowEnergyController>
 #include <QList>
 #include <QString>
+#include <QTime>
 
 namespace Ui {
 class MainWindow;
@@ -25,12 +26,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public slots:
-    void deviceSearch();
 private slots:
     void addDevice(const QBluetoothDeviceInfo&);
     void deviceScanError(QBluetoothDeviceDiscoveryAgent::Error);
     void scanFinished();
+
+public slots:
+    void updateLeftFootFront(const int);
+    void updateLeftFootBack(const int);
+    void updateRightFootFront(const int);
+    void updateRightFootBack(const int);
+    void updateAccelerometerX(const int);
+    void updateAccelerometerY(const int);
+    void updateAccelerometerZ(const int);
 
 private:
     Ui::MainWindow *ui;
@@ -41,6 +49,7 @@ private:
     FootSensorController *m_leftFootController;
     FootSensorController *m_rightFootController;
     AccelerometerController *m_accelerometerController;
+    int startTime;
 
 };
 

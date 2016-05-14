@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>557</width>
-    <height>467</height>
+    <width>559</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,19 +19,27 @@
      <widget class="IncrementalPlot" name="accelerometerXPlot" native="true"/>
     </item>
     <item row="0" column="1">
-     <widget class="IncrementalPlot" name="leftFootPlot" native="true"/>
+     <widget class="IncrementalPlot" name="leftFootFrontPlot" native="true"/>
     </item>
     <item row="1" column="0">
      <widget class="IncrementalPlot" name="accelerometerYPlot" native="true"/>
     </item>
     <item row="1" column="1">
-     <widget class="IncrementalPlot" name="rightFootPlot" native="true"/>
+     <widget class="IncrementalPlot" name="leftFootBackPlot" native="true">
+      <zorder>accelerometerXPlot</zorder>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="IncrementalPlot" name="accelerometerZPlot" native="true"/>
     </item>
     <item row="2" column="1">
-     <widget class="IncrementalPlot" name="extraPlot" native="true"/>
+     <widget class="IncrementalPlot" name="rightFootFrontPlot" native="true"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="IncrementalPlot" name="accelerometerZPlot_2" native="true"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="IncrementalPlot" name="rightFootBackPlot" native="true"/>
     </item>
    </layout>
   </widget>
@@ -40,8 +48,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>557</width>
-     <height>24</height>
+     <width>559</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
