@@ -23,6 +23,7 @@ signals:
 
 public slots:
     void disconnectService();
+    void connectToDevice();
 private slots:
     void deviceConnected();
     void deviceDisconnected();

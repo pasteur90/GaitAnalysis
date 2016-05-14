@@ -13,8 +13,28 @@ SensorController::SensorController(const QBluetoothDeviceInfo info, QObject *par
 
 }
 
+void SensorController::connectToDevice()
+{
+
+    qDebug() << "attempt to connect";
+    connect(m_controller, SIGNAL(serviceDiscovered(QBluetoothUuid)),
+            this, SLOT(serviceDiscovered(QBluetoothUuid)));
+    connect(m_controller, SIGNAL(discoveryFinished()),
+            this, SLOT(serviceScanDone()));
+    connect(m_controller, SIGNAL(error(QLowEnergyController::Error)),
+            this, SLOT(controllerError(QLowEnergyController::Error)));
+    connect(m_controller, SIGNAL(connected()),
+            this, SLOT(deviceConnected()));
+    connect(m_controller, SIGNAL(disconnected()),
+            this, SLOT(deviceDisconnected()));
+
+    m_controller->setRemoteAddressType(QLowEnergyController::RandomAddress);
+    m_controller->connectToDevice();
+}
+
 void SensorController::deviceConnected()
 {
+    qDebug() << "connected";
     m_controller->discoverServices();
 }
 
@@ -25,6 +45,7 @@ void SensorController::deviceDisconnected()
 
 void SensorController::serviceDiscovered(const QBluetoothUuid &gatt)
 {
+    qDebug() << "service Discovered";
     if (gatt == QBluetoothUuid(static_cast<quint16>(SERVICE_UUID))) {
         foundService = true;
     }
@@ -112,7 +133,7 @@ void SensorController::serviceError(QLowEnergyService::ServiceError e)
 void SensorController::updateSensorValue(const QLowEnergyCharacteristic &c,
                                          const QByteArray &value)
 {
-
+    qDebug() << value;
 }
 
 void SensorController::confirmedDescriptorWrite(const QLowEnergyDescriptor &d,

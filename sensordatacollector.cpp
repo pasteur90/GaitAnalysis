@@ -30,18 +30,26 @@ void SensorDataCollector::addDevice(const QBluetoothDeviceInfo &device)
         qWarning() << "Discovered LE Device name: " << device.name() << " Address: "
                    << device.address().toString();
 
-        if (QString::compare(device.name(), QString("HGinnoL")) == 0) {
+        if (QString::compare(device.name(), QString("HGinnoL")) == 0
+                && m_leftFoot == 0) {
             qDebug() << "HGinnoL found";
             m_leftFoot = new QBluetoothDeviceInfo(device);
+            m_leftFootController = new SensorController(*m_leftFoot);
+            m_leftFootController->connectToDevice();
         }
-        else if (QString::compare(device.name(), QString("HGinnoR")) == 0) {
+        else if (QString::compare(device.name(), QString("HGinnoR")) == 0
+                 && m_rightFoot == 0) {
             qDebug() << "HGinnoR found";
             m_rightFoot = new QBluetoothDeviceInfo(device);
+            m_rightFootController = new SensorController(*m_rightFoot);
+            m_rightFootController->connectToDevice();
         }
-        else if (QString::compare(device.name(), QString("HGinnoG")) == 0) {
+        else if (QString::compare(device.name(), QString("HGinnoG")) == 0
+                 && m_accelerometer == 0) {
             qDebug() << "HGinnoG found";
             m_accelerometer = new QBluetoothDeviceInfo(device);
-            m_accelerometerController = new SensorController(*m_accelerometer, this);
+            m_accelerometerController = new SensorController(*m_accelerometer);
+            m_accelerometerController->connectToDevice();
         }
     }
 }
@@ -54,12 +62,12 @@ void SensorDataCollector::scanFinished()
 //        m_accelerometerController = new SensorController(*m_accelerometer, this);
 //    }
     qDebug() << "scan finished";
-    if (m_accelerometer) {
-        m_accelerometerController = new SensorController(*m_accelerometer, this);
-    }
-    else {
-        qWarning() << "not all devices are detected";
-    }
+//    if (m_accelerometer) {
+//        m_accelerometerController = new SensorController(*m_accelerometer, this);
+//    }
+//    else {
+//        qWarning() << "not all devices are detected";
+//    }
 
 }
 
