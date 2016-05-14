@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "sensordatacollector.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // TODO: start time need to be updated every iteration
     startTime = QTime::currentTime().msecsSinceStartOfDay();
 
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(startOver()));
+    timer->start(5000);
 }
 
 MainWindow::~MainWindow()
@@ -101,35 +105,54 @@ void MainWindow::deviceScanError(QBluetoothDeviceDiscoveryAgent::Error error)
 
 void MainWindow::updateLeftFootFront(const int val)
 {
-    ui->leftFootFrontPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->leftFootFrontPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->leftFootFrontPlot->replot();
 }
 
 void MainWindow::updateLeftFootBack(const int val)
 {
-    ui->leftFootBackPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->leftFootBackPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->leftFootBackPlot->replot();
 }
 
 void MainWindow::updateRightFootFront(const int val)
 {
-    ui->rightFootFrontPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->rightFootFrontPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->rightFootFrontPlot->replot();
 }
 
 void MainWindow::updateRightFootBack(const int val)
 {
-    ui->rightFootBackPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->rightFootBackPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->rightFootBackPlot->replot();
 }
 
 void MainWindow::updateAccelerometerX(const int val)
 {
-    ui->accelerometerXPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->accelerometerXPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->accelerometerXPlot->replot();
 }
 
 void MainWindow::updateAccelerometerY(const int val)
 {
-    ui->accelerometerYPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->accelerometerYPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->accelerometerYPlot->replot();
 }
 
 void MainWindow::updateAccelerometerZ(const int val)
 {
-    ui->accelerometerZPlot->appendPoint(QPointF(startTime - QTime::currentTime().msecsSinceStartOfDay(), val));
+    ui->accelerometerZPlot->appendPoint(QPointF(QTime::currentTime().msecsSinceStartOfDay() - startTime, val));
+    ui->accelerometerZPlot->replot();
+}
+
+void MainWindow::startOver()
+{
+    ui->leftFootFrontPlot->clearPoints();
+    ui->leftFootBackPlot->clearPoints();
+    ui->rightFootFrontPlot->clearPoints();
+    ui->rightFootBackPlot->clearPoints();
+    ui->accelerometerXPlot->clearPoints();
+    ui->accelerometerYPlot->clearPoints();
+    ui->accelerometerZPlot->clearPoints();
+    startTime = QTime::currentTime().msecsSinceStartOfDay();
 }

@@ -41,6 +41,9 @@ IncrementalPlot::IncrementalPlot( QWidget *parent ):
 {
     d_directPainter = new QwtPlotDirectPainter( this );
 
+    setCanvasBackground(QColor(Qt::black));
+    setAxisScale(QwtPlot::xBottom, 0, 5000);
+
     if ( QwtPainter::isX11GraphicsSystem() )
     {
 #if QT_VERSION < 0x050000
@@ -69,29 +72,29 @@ void IncrementalPlot::appendPoint( const QPointF &point )
     data->append( point );
 
     const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-    if ( doClip )
-    {
-        /*
-           Depending on the platform setting a clip might be an important
-           performance issue. F.e. for Qt Embedded this reduces the
-           part of the backing store that has to be copied out - maybe
-           to an unaccelerated frame buffer device.
-         */
-        const QwtScaleMap xMap = canvasMap( d_curve->xAxis() );
-        const QwtScaleMap yMap = canvasMap( d_curve->yAxis() );
+//    if ( doClip )
+//    {
+//        /*
+//           Depending on the platform setting a clip might be an important
+//           performance issue. F.e. for Qt Embedded this reduces the
+//           part of the backing store that has to be copied out - maybe
+//           to an unaccelerated frame buffer device.
+//         */
+//        const QwtScaleMap xMap = canvasMap( d_curve->xAxis() );
+//        const QwtScaleMap yMap = canvasMap( d_curve->yAxis() );
 
-        QRegion clipRegion;
+//        QRegion clipRegion;
 
-        const QSize symbolSize = d_curve->symbol()->size();
-        QRect r( 0, 0, symbolSize.width() + 2, symbolSize.height() + 2 );
+//        const QSize symbolSize = d_curve->symbol()->size();
+//        QRect r( 0, 0, symbolSize.width() + 2, symbolSize.height() + 2 );
 
-        const QPointF center =
-            QwtScaleMap::transform( xMap, yMap, point );
-        r.moveCenter( center.toPoint() );
-        clipRegion += r;
+//        const QPointF center =
+//            QwtScaleMap::transform( xMap, yMap, point );
+//        r.moveCenter( center.toPoint() );
+//        clipRegion += r;
 
-        d_directPainter->setClipRegion( clipRegion );
-    }
+//        d_directPainter->setClipRegion( clipRegion );
+//    }
 
     d_directPainter->drawSeries( d_curve,
         data->size() - 1, data->size() - 1 );
@@ -109,9 +112,13 @@ void IncrementalPlot::showSymbols( bool on )
 {
     if ( on )
     {
-        d_curve->setStyle( QwtPlotCurve::NoCurve );
-        d_curve->setSymbol( new QwtSymbol( QwtSymbol::XCross,
-            Qt::NoBrush, QPen( Qt::white ), QSize( 4, 4 ) ) );
+//        d_curve->setStyle( QwtPlotCurve::NoCurve );
+//        d_curve->setSymbol( new QwtSymbol( QwtSymbol::XCross,
+//            Qt::NoBrush, QPen( Qt::white ), QSize( 4, 4 ) ) );
+//        d_curve->setStyle(QwtPlotCurve::Dots);
+//        d_curve->setSymbol(new QwtSymbol(QwtSymbol::XCross,
+//                                         Qt::NoBrush, QPen(Qt::white), QSize(4, 4)));
+        d_curve->setPen(QPen(Qt::white, 1, Qt::SolidLine));
     }
     else
     {

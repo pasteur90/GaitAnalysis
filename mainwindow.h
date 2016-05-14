@@ -30,6 +30,7 @@ private slots:
     void addDevice(const QBluetoothDeviceInfo&);
     void deviceScanError(QBluetoothDeviceDiscoveryAgent::Error);
     void scanFinished();
+    void startOver();
 
 public slots:
     void updateLeftFootFront(const int);
