@@ -41,20 +41,23 @@ void SensorDataCollector::addDevice(const QBluetoothDeviceInfo &device)
         else if (QString::compare(device.name(), QString("HGinnoG")) == 0) {
             qDebug() << "HGinnoG found";
             m_accelerometer = new QBluetoothDeviceInfo(device);
+            m_accelerometerController = new SensorController(*m_accelerometer, this);
         }
     }
 }
 
 void SensorDataCollector::scanFinished()
 {
-    if (m_leftFoot && m_rightFoot && m_accelerometer)
-    {
-        m_leftFootController = new SensorController(*m_leftFoot, this);
-        m_rightFootController = new SensorController(*m_rightFoot, this);
+//    if (m_leftFoot && m_rightFoot && m_accelerometer) {
+//        m_leftFootController = new SensorController(*m_leftFoot, this);
+//        m_rightFootController = new SensorController(*m_rightFoot, this);
+//        m_accelerometerController = new SensorController(*m_accelerometer, this);
+//    }
+    qDebug() << "scan finished";
+    if (m_accelerometer) {
         m_accelerometerController = new SensorController(*m_accelerometer, this);
     }
-    else
-    {
+    else {
         qWarning() << "not all devices are detected";
     }
 

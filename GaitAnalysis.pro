@@ -6,6 +6,8 @@
 
 QT       += core gui bluetooth
 
+CONFIG  += qwt
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = GaitAnalysis
@@ -15,10 +17,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     sensordatacollector.cpp \
-    sensorcontroller.cpp
+    sensorcontroller.cpp \
+    sensorplot.cpp
 
 HEADERS  += mainwindow.h \
     sensordatacollector.h \
-    sensorcontroller.h
+    sensorcontroller.h \
+    sensorplot.h
 
 FORMS    += mainwindow.ui
