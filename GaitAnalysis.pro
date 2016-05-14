@@ -20,13 +20,15 @@ SOURCES += main.cpp\
     sensorcontroller.cpp \
     sensorplot.cpp \
     footsensorcontroller.cpp \
-    accelerometercontroller.cpp
+    accelerometercontroller.cpp \
+    incrementalplot.cpp
 
 HEADERS  += mainwindow.h \
     sensordatacollector.h \
     sensorcontroller.h \
     sensorplot.h \
     footsensorcontroller.h \
-    accelerometercontroller.h
+    accelerometercontroller.h \
+    incrementalplot.h
 
 FORMS    += mainwindow.ui

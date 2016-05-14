@@ -15,6 +15,7 @@
 class SensorDataCollector : public QObject
 {
     Q_OBJECT
+
 private:
     QBluetoothDeviceDiscoveryAgent *m_deviceDiscoveryAgent;
     QBluetoothDeviceInfo *m_leftFoot;
