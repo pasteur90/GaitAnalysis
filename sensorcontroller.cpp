@@ -130,11 +130,12 @@ void SensorController::serviceError(QLowEnergyService::ServiceError e)
     }
 }
 
-void SensorController::updateSensorValue(const QLowEnergyCharacteristic &c,
-                                         const QByteArray &value)
-{
-    qDebug() << value;
-}
+//pure virtual function
+//void SensorController::updateSensorValue(const QLowEnergyCharacteristic &c,
+//                                         const QByteArray &value)
+//{
+//    qDebug() << value;
+//}
 
 void SensorController::confirmedDescriptorWrite(const QLowEnergyDescriptor &d,
                                                 const QByteArray &value)

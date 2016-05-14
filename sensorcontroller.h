@@ -32,8 +32,8 @@ private slots:
     void controllerError(QLowEnergyController::Error);
     void serviceStateChanged(QLowEnergyService::ServiceState);
     void serviceError(QLowEnergyService::ServiceError);
-    void updateSensorValue(const QLowEnergyCharacteristic &,
-                           const QByteArray &);
+    virtual void updateSensorValue(const QLowEnergyCharacteristic &,
+                           const QByteArray &) = 0;
     void confirmedDescriptorWrite(const QLowEnergyDescriptor &,
                                   const QByteArray &);
 };
