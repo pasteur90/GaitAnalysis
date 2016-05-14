@@ -2,6 +2,8 @@
 #define SENSORDATACOLLECTOR_H
 
 #include "sensorcontroller.h"
+#include "accelerometercontroller.h"
+#include "footsensorcontroller.h"
 
 #include <QObject>
 #include <QBluetoothDeviceDiscoveryAgent>
@@ -18,9 +20,9 @@ private:
     QBluetoothDeviceInfo *m_leftFoot;
     QBluetoothDeviceInfo *m_rightFoot;
     QBluetoothDeviceInfo *m_accelerometer;
-    SensorController *m_leftFootController;
-    SensorController *m_rightFootController;
-    SensorController *m_accelerometerController;
+    FootSensorController *m_leftFootController;
+    FootSensorController *m_rightFootController;
+    AccelerometerController *m_accelerometerController;
 
 public:
     explicit SensorDataCollector(QObject *parent = 0);

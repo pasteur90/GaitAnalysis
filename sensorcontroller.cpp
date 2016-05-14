@@ -8,7 +8,8 @@
 SensorController::SensorController(const QBluetoothDeviceInfo info, QObject *parent) : QObject(parent),
     m_controller(new QLowEnergyController(info, this)),
     foundService(false),
-    m_service(0)
+    m_service(0),
+    m_info(new QBluetoothDeviceInfo(info))
 {
 
 }

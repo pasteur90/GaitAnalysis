@@ -16,9 +16,10 @@ private:
     QLowEnergyService *m_service;
     QLowEnergyDescriptor m_notificationDesc;
 
+
 public:
     explicit SensorController(const QBluetoothDeviceInfo info, QObject *parent = 0);
-
+    QBluetoothDeviceInfo *m_info;
 signals:
 
 public slots:
