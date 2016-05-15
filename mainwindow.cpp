@@ -58,6 +58,10 @@ void MainWindow::addDevice(const QBluetoothDeviceInfo &device)
             m_rightFoot = new QBluetoothDeviceInfo(device);
             m_rightFootController = new FootSensorController(*m_rightFoot);
             m_rightFootController->connectToDevice();
+            connect(m_rightFootController, SIGNAL(frontValue(int)),
+                    this, SLOT(updateRightFootFront(int)));
+            connect(m_rightFootController, SIGNAL(backValue(int)),
+                    this, SLOT(updateRightFootBack(int)));
         }
         else if (QString::compare(device.name(), QString("HGinnoG")) == 0
                  && m_accelerometer == 0) {
@@ -155,4 +159,9 @@ void MainWindow::startOver()
     ui->accelerometerYPlot->clearPoints();
     ui->accelerometerZPlot->clearPoints();
     startTime = QTime::currentTime().msecsSinceStartOfDay();
+}
+
+void MainWindow::on_pushButton_released()
+{
+
 }

@@ -42,6 +42,7 @@ IncrementalPlot::IncrementalPlot( QWidget *parent ):
     d_directPainter = new QwtPlotDirectPainter( this );
 
     setCanvasBackground(QColor(Qt::black));
+    setAxisScale(QwtPlot::yLeft, 0, 1024);
     setAxisScale(QwtPlot::xBottom, 0, 5000);
 
     if ( QwtPainter::isX11GraphicsSystem() )
