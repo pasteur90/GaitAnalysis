@@ -4,6 +4,8 @@
 #include "sensorcontroller.h"
 
 #include <QObject>
+#include <QFile>
+#include <QTextStream>
 
 class FootSensorController : public SensorController
 {
@@ -16,6 +18,11 @@ private slots:
 signals:
     void frontValue(const int);
     void backValue(const int);
+
+private:
+    QFile *m_file;
+    QTextStream *m_stream;
+
 };
 
 #endif // FOOTSENSORCONTROLLER_H

@@ -13,6 +13,7 @@
 #include <QList>
 #include <QString>
 #include <QTime>
+#include <QFile>
 
 namespace Ui {
 class MainWindow;
@@ -50,6 +51,14 @@ private:
     FootSensorController *m_leftFootController;
     FootSensorController *m_rightFootController;
     AccelerometerController *m_accelerometerController;
+    QFile *m_leftFootFrontFile;
+    QFile *m_leftFootBackFile;
+    QFile *m_rightFootFrontFile;
+    QFile *m_rightFootBackFile;
+    QFile *m_accelerometerXFile;
+    QFile *m_accelerometerYFile;
+    QFile *m_accelerometerZFile;
+
     int startTime;
 
 };

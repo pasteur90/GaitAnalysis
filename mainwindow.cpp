@@ -8,7 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     m_deviceDiscoveryAgent(0),
     m_leftFoot(0), m_rightFoot(0), m_accelerometer(0),
-    m_leftFootController(0), m_rightFootController(0), m_accelerometerController(0)
+    m_leftFootController(0), m_rightFootController(0), m_accelerometerController(0),
+    m_leftFootFrontFile(0), m_leftFootBackFile(0), m_rightFootFrontFile(0), m_rightFootBackFile(0)
 {
     ui->setupUi(this);
     m_deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
@@ -161,7 +162,3 @@ void MainWindow::startOver()
     startTime = QTime::currentTime().msecsSinceStartOfDay();
 }
 
-void MainWindow::on_pushButton_released()
-{
-
-}

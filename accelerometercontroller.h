@@ -4,6 +4,8 @@
 #include "sensorcontroller.h"
 
 #include <QObject>
+#include <QFile>
+#include <QTextStream>
 
 class AccelerometerController : public SensorController
 {
@@ -17,6 +19,9 @@ signals:
     void xValue(const int);
     void yValue(const int);
     void zValue(const int);
+private:
+    QFile *m_file;
+    QTextStream *m_stream;
 };
 
 #endif // ACCELEROMETERCONTROLLER_H
